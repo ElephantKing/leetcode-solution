@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        int len = nums.size();
+        vector<vector<int> > res;
+        vector<int> temp;
+        
+        if(len < 4)return res;
+        unordered_map<int, int> s;
+        nums.sort(nums.begin(), nums.end());
+        for(int i = 0; i < len; ++i)
+        {
+            s[nums[i]] = i;//所有元素放入集合中
+        }
+        
+        for(int i = 0; i < len - 3; ++i)
+        {
+            int j = i + 1, k = len - 1;
+            while(j < k)
+            {
+                int rest = target - nums[i] - nums[j] - nums[k];
+                if(s.find(rest) != s.end() && s[nums[rest]] > j && s[nums[rest]] < k)
+                {
+                    temp = {nums[i], nums[j], rest, nums[k]};
+                    res.push_back(temp);
+                    while(j+1 < k && nums[j] == nums[j+1])++j;
+                }
+                else if()
+            }
+        }
+    }
+};
