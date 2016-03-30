@@ -1,0 +1,63 @@
+class Solution {
+public:
+    int getFirst(vector<int>& nums, int target)
+    {
+        int len = nums.size();
+        int left = 0;
+        int right = len - 1;
+        while(left + 1 < right)
+        {
+            int mid = left + (right - left) / 2;
+            if(nums[mid] == target)
+            {
+                right = mid;
+            }
+            else if(nums[mid] < target)
+            {
+                left = mid;
+            }
+            else right = mid;
+        }
+        if(nums[left] == target)return left;
+        if(nums[right] == target)return right;
+        return -1;
+    }
+    int getLast(vector<int>& nums, int target)
+    {
+        int len = nums.size();
+        int left = 0;
+        int right = len - 1;
+        while(left + 1 < right)
+        {
+            int mid = left + (right - left) / 2;
+            if(nums[mid] == target)
+            {
+                left = mid;
+            }
+            else if(nums[mid] < target)
+            {
+                left = mid;
+            }
+            else right = mid;
+        }
+        if(nums[right] == target)return right;//这两句话的顺序用特例1,1可以辅助记忆
+        if(nums[left] == target)return left;
+        return -1;
+       
+    }
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int len = nums.size();
+        vector<int> res(2,-1);
+        if(len <= 0)return res;
+        
+        vector<int>::iterator left = lower_bound(nums.begin(), nums.end(), target);
+        vector<int>::iterator right = upper_bound(nums.begin(), nums.end(), target);
+        if(*left == target)
+        {
+            res[0] = distance(nums.begin(), left);
+            res[1] = distance(nums.begin(), right - 1);
+        }
+        return res;
+        
+    }
+};
