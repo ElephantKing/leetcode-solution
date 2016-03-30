@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> getR(vector<int>& nums, int i)
+    {
+        vector<int> v;
+        int index = 0;
+        while(i != 0)
+        {
+            if(i & 1)
+                v.push_back(nums[index]);
+            i >>= 1;
+            index++;
+        }
+        return v;
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int> > res;
+        sort(nums.begin(), nums.end());
+        for(int i = 0; i < (1 << nums.size()); ++i)
+        {
+            res.push_back(getR(nums, i));
+        }
+        return res;
+    }
+};
