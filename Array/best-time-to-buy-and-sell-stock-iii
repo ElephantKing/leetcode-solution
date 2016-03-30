@@ -1,0 +1,48 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int len = prices.size();
+        if(len <= 1)return 0;
+        int minP = prices[0],maxP = prices[0];
+        int profit = INT_MIN;
+        vector<int> frontBuy,backBuy;
+        frontBuy.push_back(0);
+        for(int i = 1; i < len; ++i)
+        {
+            if(prices[i] > minP)
+            {
+                profit = max(profit, prices[i] - minP);
+                frontBuy.push_back(profit);
+            }
+            else
+            {
+                minP = prices[i];
+                frontBuy.push_back(frontBuy.back());
+            }  
+        }
+        int maxBack = prices[len - 1];
+        int backProfit = 0;
+        backBuy.push_back(0);
+        
+        for(int i = len - 2; i >= 0; --i)
+        {
+            if(prices[i] > maxBack)
+            {
+                maxBack = prices[i];
+                backBuy.push_back(backBuy.back());
+            }
+            else
+            {
+                backProfit = max(backProfit, maxBack - prices[i]);
+                backBuy.push_back(backProfit);
+            }
+        }
+        
+        int maxRes = INT_MIN;
+        for(int i = 0; i < len; ++i)
+        {
+            maxRes = max(maxRes, frontBuy[i] + backBuy[len - i - 1]);
+        }
+        return maxRes;
+    }
+};
