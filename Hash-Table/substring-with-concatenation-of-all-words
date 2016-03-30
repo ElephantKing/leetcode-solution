@@ -1,0 +1,54 @@
+class Solution {
+public:
+    bool matched(string& s, int start, int end, unordered_map<string, int> se, int len)
+    {
+        for(int i = start; i < end; i+=len)
+        {
+            if(se.find(s.substr(i, len)) == se.end() || se[s.substr(i, len)] == 0)
+            {
+                return false;
+            }
+            else
+            {
+                se[s.substr(i, len)]--;
+            }
+        }
+        return true;
+    }
+    vector<int> findSubstring(string s, vector<string>& words) {
+        unordered_map<string, int> se;
+        unordered_set<char> setChar;
+        for(int i = 0; i < words.size(); ++i)
+        {
+            se[words[i]]++;
+        }
+        for(int i = 0; i < words.size(); ++i)
+        {
+            for(int j = 0; j < words[i].size(); ++j)
+                setChar.insert(words[i][j]);
+        }
+        
+        int len = words.size();
+        int lenWord = words[0].size();
+        
+        int left = 0, right = left + len * lenWord;
+        vector<int> res;
+        while(right <= s.size())
+        {
+            if(matched(s, left, right, se, lenWord))
+                res.push_back(left);
+            
+            if(right + 1 <= s.size() && setChar.find(s[right]) == setChar.end())
+            {
+                left = right + 1;
+                right = left + len * lenWord;
+            }
+            else
+            {
+                left++;
+                right++;
+            }
+        }
+        return res;
+    }
+};
