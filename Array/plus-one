@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int len = digits.size();
+        int overFlow = 0;
+        reverse(digits.begin(), digits.end());
+        for(int i = 0; i < len; ++i)
+        {
+            if(digits[i] < 9)
+            {
+                digits[i] += 1;
+                overFlow = 0;
+                break;
+            }
+            else
+            {
+                digits[i] = 0;
+                overFlow = 1;
+            }
+        }
+        
+        if(overFlow == 1)
+            digits.push_back(1);
+        reverse(digits.begin(), digits.end());
+        return digits;
+    }
+};
