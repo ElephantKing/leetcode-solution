@@ -1,0 +1,25 @@
+class Solution {
+public:
+    void getR(vector<vector<int> >& res, vector<int>& temp, int k, int n, int start)
+    {
+        if(k == 0 && n == 0)
+        {
+            res.push_back(temp);
+            return;
+        }
+        for(int i = start + 1; i <= 9; ++i)
+        {
+            if(i > n)return;
+            
+            temp.push_back(i);
+            getR(res, temp, k - 1, n - i, i);
+            temp.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<int> temp;
+        vector<vector<int> > res;
+        getR(res, temp, k, n, 0);
+        return res;
+    }
+};
