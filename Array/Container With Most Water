@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        vector<int>::size_type len = height.size();
+        if(len <= 1)return 0;
+        
+        int maxRes = 0;
+        int start = 0, end = len - 1;
+        while(start < end)
+        {
+            maxRes = max(maxRes, (end - start) * min(height[start], height[end]));
+            height[start] > height[end] ? end-- : start++;
+        }
+        return maxRes;
+    }
+};
