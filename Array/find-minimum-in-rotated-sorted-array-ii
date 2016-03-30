@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int len = nums.size();
+        if(len <= 0)return 0;
+        
+        int start = 0, end = len - 1;
+        
+        while(start + 1 < end)
+        {
+            while(start + 1 < end && nums[start + 1] == nums[start])start++;
+            while(start + 1 < end && nums[end] == nums[end - 1])end--;
+            
+            int mid = end - (end - start) / 2;
+            if(nums[mid] >= nums[start] && nums[mid] <= nums[end])
+            {
+                return nums[start];
+            }
+            else if(nums[mid] >= nums[start] && nums[mid] > nums[end])
+            {
+                start = mid;
+            }
+            else
+                end = mid;
+        }
+        return min(nums[start], nums[end]);
+    }
+};
