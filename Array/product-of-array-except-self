@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int len = nums.size();
+        
+        vector<int> res;
+        res.push_back(1);
+        int pro = nums[0];
+        for(int i = 1; i < len; ++i)
+        {
+            res.push_back(pro);
+            pro *= nums[i];
+        }
+        
+        int last = 1;
+        for(int i = res.size() - 1; i >= 0; --i)
+        {
+            int temp = last * res[i];
+            res[i] = temp;
+            last *= nums[i];
+        }
+        
+        return res;
+    }
+};
