@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        vector<int> leftMaxStack, rightMaxStack;
+        int len = height.size();
+        if(len <= 2)return 0;
+        
+        leftMaxStack.push_back(0);
+        for(int i = 1; i < len; ++i)
+        {
+            if(height[i - 1] > leftMaxStack.back()) 
+                leftMaxStack.push_back(height[i - 1]);
+            else 
+                leftMaxStack.push_back(leftMaxStack.back());
+        }
+        
+        rightMaxStack.push_back(0);
+        for(int i = len - 2; i >= 0; --i)
+        {
+            if(height[i+1] > rightMaxStack.back())
+                 rightMaxStack.push_back(height[i+1]);
+            else 
+                rightMaxStack.push_back(rightMaxStack.back());
+        }
+        
+        int res = 0;
+        for(int i = 1; i < len; ++i)
+        {
+            int h = min(leftMaxStack[i], rightMaxStack[len - i - 1]);
+            if(h > height[i])
+            {
+                res += h - height[i];
+            }
+        }
+        return res;
+        
+    }
+};
