@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int len = prices.size();
+        if(len == 0)return 0;
+        
+        int maxRes = 0;
+        int minP = prices[0];
+        for(int i = 1; i < len; ++i)
+        {
+            if(prices[i] > minP)
+            {
+                maxRes = max(maxRes, prices[i] - minP);
+            }
+            else
+            {
+                minP = prices[i];
+            }
+        }
+        return maxRes;
+    }
+};
