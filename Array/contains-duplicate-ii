@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        int len = nums.size();
+        if(len <= 1)return false;
+        int index = 1;
+        set<int> setR;
+        setR.insert(nums[0]);
+        while(index < len && index <= k)
+        {
+            if(setR.count(nums[index]) == 1)return true;
+            else setR.insert(nums[index]);
+            index++;
+        }
+        int first = 0;
+        while(index < len)
+        {
+            setR.erase(nums[first++]);
+            if(setR.count(nums[index]) == 1)return true;
+            else setR.insert(nums[index]);
+            index++;
+        }
+        return false;
+    }
+};
