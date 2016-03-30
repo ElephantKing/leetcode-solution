@@ -1,0 +1,17 @@
+class Solution {
+public:
+    void help(vector<int>& nums, int start, int end)
+    {
+        while(start < end)
+        {
+            swap(nums[start++], nums[end--]);
+        }
+    }
+    void rotate(vector<int>& nums, int k) {
+        int len = nums.size();
+        k %= len;
+        help(nums, 0, len - k - 1);
+        help(nums, len - k, len - 1);
+        help(nums, 0, len - 1);
+    }
+};
