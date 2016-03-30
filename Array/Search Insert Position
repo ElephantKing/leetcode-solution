@@ -1,0 +1,10 @@
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int len = nums.size();
+        if(len <= 0)return 0;
+        
+        vector<int>::iterator iter = lower_bound(nums.begin(), nums.end(), target);
+        return distance(nums.begin(), iter);
+    }
+};
