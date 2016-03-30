@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        int len = nums.size();
+        if(len <= 1)return len;
+        
+        unordered_map<int, pair<int,int> > m;
+        int res = INT_MIN;
+        for(int i = 0; i < len; ++i)
+        {
+            if(m.find(nums[i]) == m.end())
+            {
+                m[nums[i]] = make_pair(nums[i],nums[i]);
+                
+                if(m.find(nums[i] - 1) == m.end() && m.find(nums[i] + 1) != m.end())
+                {
+                    m[m[nums[i] + 1].second].first = nums[i];
+                    
+                    m[nums[i]].second = m[nums[i] + 1].second;
+                }
+                else if(m.find(nums[i] - 1) != m.end() && m.find(nums[i] + 1) == m.end())
+                {
+                    m[nums[i]].first = m[m[nums[i] - 1].first].first;
+                    m[m[nums[i] - 1].first].second = nums[i];
+                }
+                else if(m.find(nums[i] - 1) == m.end() && m.find(nums[i] + 1) == m.end())
+                {
+                    continue;
+                }
+                else
+                {
+                    m[m[nums[i] - 1].first].second = m[nums[i] + 1].second;
+                    m[m[nums[i] + 1].second].first = m[nums[i] - 1].first;
+                }
+            }
+            else
+            {
+                continue;
+            }
+        }
+        for(auto iter = m.begin(); iter != m.end(); ++iter)
+        {
+            res = max(res, iter->second.second -  iter->second.first);
+        }
+        return res + 1;
+    }
+};
