@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<int> level0;
+        vector<vector<int> > res;
+        
+        for(int i = 0; i < numRows; ++i)
+        {
+            vector<int> temp;
+            for(int j = 0; j < level0.size(); ++j)
+            {
+                if(j == 0)
+                    temp.push_back(1);
+                else
+                    temp.push_back(level0[j - 1] + level0[j]);
+            }
+            temp.push_back(1);
+            res.push_back(temp);
+            level0.swap(temp);
+        }
+        return res;
+    }
+};
