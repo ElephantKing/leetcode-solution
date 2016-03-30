@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void getR(vector<int>& candidates, vector<vector<int> >& res, vector<int>& temp, int target, int start)
+    {
+        if(target == 0)
+        {
+            res.push_back(temp);
+            return;
+        }
+        for(int i = start; i < candidates.size(); ++i)
+        {
+            if(target >= candidates[i])
+            {
+                temp.push_back(candidates[i]);
+                getR(candidates, res, temp, target - candidates[i], i + 1);
+                temp.pop_back();
+            }
+            while(i + 1 < candidates.size() && candidates[i] == candidates[i + 1])i++;
+        }
+    }
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        int len = candidates.size();
+        vector<int> temp;
+        vector<vector<int> > res;
+        if(len <= 0)return res;
+        sort(candidates.begin(), candidates.end());
+        getR(candidates, res, temp, target, 0);
+        return res;
+    }
+};
