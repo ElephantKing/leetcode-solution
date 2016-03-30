@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int len = nums.size();
+        int maxNow = nums[0];
+        int maxRes = nums[0];
+        
+        for(int i = 1; i < len; ++i)
+        {
+            if(nums[i] > 0)
+            {
+                if(maxNow >=0)
+                {
+                    maxNow += nums[i];
+                }
+                else
+                    maxNow = nums[i];
+                    
+                maxRes = max(maxRes, maxNow);
+            }
+            else
+            {
+                if(maxNow + nums[i] >= 0)
+                {
+                    maxNow += nums[i];
+                    maxRes = max(maxRes, maxNow);
+                }
+                else
+                {
+                    maxNow = max(maxNow, nums[i]);
+                    maxRes = max(maxRes, maxNow);
+                    maxNow = nums[i];
+                }
+            }
+            
+        }
+        return maxRes;
+    }
+};
