@@ -1,0 +1,76 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int> > &matrix) {
+        int row = matrix.size();
+        vector<int> vec;
+        vec.clear();
+        if(row == 0) return vec;
+        int low = matrix[0].size();
+        int rowNum = low;
+        int lowNum = row-1;
+
+        int right = 1,down = 2,left = 3,up = 4;
+        int direct = 1;
+        int totalInput  = 0;
+        int i = 0,j = -1;
+
+        while(totalInput != row*low)
+        {
+            if(direct==1)
+            {
+                int index = rowNum;
+                while(index != 0)
+                {
+                    j++;
+                    vec.push_back(matrix[i][j]);
+                    totalInput++;
+                    index--;
+                }
+                rowNum--;
+                direct=2;
+            }
+            else if(direct==2)
+            {
+                int index = lowNum;
+                while(index != 0)
+                {
+                    i++;
+                    vec.push_back(matrix[i][j]);
+                    totalInput++;
+                    index--;
+                }
+                lowNum--;
+                direct=3;
+            }
+            else if(direct==3)
+            {
+                int index = rowNum;
+                while(index != 0)
+                {
+                    j--;
+                    vec.push_back(matrix[i][j]);
+                    totalInput++;
+                    index--;
+                }
+                rowNum--;
+                direct=4;
+            }
+            else if(direct==4)
+            {
+                int index = lowNum;
+                while(index != 0)
+                {
+                    i--;
+                    vec.push_back(matrix[i][j]);
+                    totalInput++;
+                    index--;
+                }
+                lowNum--;
+                direct=1;
+            }
+        }
+        return vec;
+    }
+   
+    
+};
